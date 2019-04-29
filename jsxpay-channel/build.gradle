@@ -1,0 +1,8 @@
+dependencies {
+    compile project(":jsxpay-common")
+    compile project(":jsxpay-util")
+    compile 'org.freemarker:freemarker'
+    compile 'org.apache.httpcomponents:httpclient'
+    compile 'org.springframework.boot:spring-boot-starter'
+    testCompile 'junit:junit'
+}

@@ -1,0 +1,12 @@
+rootProject.name = 'jsxpay'
+include 'jsxpay-common'
+include 'jsxpay-core'
+include 'jsxpay-reconciliation'
+include 'jsxpay-channel'
+include 'jsxpay-account'
+include 'jsxpay-trade'
+include 'jsxpay-gateway'
+include 'jsxpay-management'
+include 'jsxpay-util'
+include 'jsxpay-mock'
+

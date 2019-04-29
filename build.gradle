@@ -1,0 +1,68 @@
+buildscript {
+    ext.dependencyPluginVersion = '1.0.7.RELEASE'
+    ext.springBootVersion = '2.1.4.RELEASE'
+    ext.springCloudVersion = 'Greenwich.RELEASE'
+    
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyPluginVersion}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+group 'io.jyasonx'
+version '1.0.0-SNAPSHOT'
+
+allprojects {
+    version '1.0.0-SNAPSHOT'
+
+    ext.guavaVersion = '27.1-jre'
+    ext.commonsBeanUtilsVersion = '1.9.3'
+    ext.commonsIoVersion = '2.6'
+    ext.commonsCompressVersion = '1.18'
+    ext.bouncycastleVersion = '1.61'
+    ext.hibernateValidatorVersion = '6.0.16.Final'
+
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    apply plugin: 'maven'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+
+        dependencies {
+            dependency "com.google.guava:guava:${guavaVersion}"
+            dependency "commons-beanutils:commons-beanutils:${commonsBeanUtilsVersion}"
+            dependency "commons-io:commons-io:${commonsIoVersion}"
+            dependency "org.apache.commons:commons-compress:${commonsCompressVersion}"
+
+            dependency "org.bouncycastle:bcpkix-jdk15on:${bouncycastleVersion}"
+            dependency "org.bouncycastle:bcmail-jdk15on:${bouncycastleVersion}"
+            dependency "org.bouncycastle:bcpg-jdk15on:${bouncycastleVersion}"
+            dependency "org.bouncycastle:bctls-jdk15on:${bouncycastleVersion}"
+            dependency "org.bouncycastle:bcprov-ext-jdk15on:${bouncycastleVersion}"
+
+            dependency "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
+        }
+
+    }
+
+    repositories {
+        jcenter()
+    }
+}
