@@ -33,7 +33,7 @@ allprojects {
 
     apply plugin: 'maven'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
+//    apply plugin: 'org.springframework.boot'
 
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
     sourceCompatibility = '1.8'
