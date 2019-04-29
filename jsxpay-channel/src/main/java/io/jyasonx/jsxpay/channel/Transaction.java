@@ -3,10 +3,7 @@ package io.jyasonx.jsxpay.channel;
 import io.jyasonx.jsxpay.common.ChannelType;
 import io.jyasonx.jsxpay.common.IdType;
 import io.jyasonx.jsxpay.common.TransactionStatus;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString(exclude = {"cvv2", "validThru"})
-@NoArgsConstructor
+//@NoArgsConstructor
+@Builder(builderClassName = "Builder")
 public class Transaction {
     private String serialNo;
 
@@ -41,9 +39,12 @@ public class Transaction {
 
     private BigDecimal amount;
 
+    private LocalDateTime expireTime;
     private LocalDateTime completedTime;
     private LocalDate settlementDate;
     private TransactionStatus status;
+
+    private String description;
 
     private String code;
     private String message;
