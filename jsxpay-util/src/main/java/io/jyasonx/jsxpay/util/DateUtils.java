@@ -382,7 +382,7 @@ public class DateUtils {
     }
 
     public static Date localDateTime2Date(LocalDateTime localDateTime) {
-        if(null == localDateTime) {
+        if (null == localDateTime) {
             return null;
         }
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());

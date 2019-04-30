@@ -10,7 +10,7 @@ public class ExceptionUtils {
 
     public static String toString(Throwable throwable) {
         try (StringWriter stringWriter = new StringWriter();
-             PrintWriter writer = new PrintWriter(stringWriter)){
+             PrintWriter writer = new PrintWriter(stringWriter)) {
             throwable.printStackTrace(writer);
             return stringWriter.toString();
 
