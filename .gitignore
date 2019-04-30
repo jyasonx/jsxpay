@@ -2,4 +2,4 @@
 .gradle/
 *.iml
 target/
-jsxpay-channel/src/java/test/resources/thirdparty-config/
+**/thirdparty-config/
