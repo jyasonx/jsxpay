@@ -5,4 +5,5 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient'
     compile 'org.springframework.boot:spring-boot-starter'
     testCompile 'junit:junit'
+    testCompile 'org.assertj:assertj-core'
 }
