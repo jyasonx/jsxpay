@@ -5,7 +5,6 @@ import io.jyasonx.jsxpay.channel.Config;
 import io.jyasonx.jsxpay.channel.bean.TransactionRequest;
 import io.jyasonx.jsxpay.common.ChannelType;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

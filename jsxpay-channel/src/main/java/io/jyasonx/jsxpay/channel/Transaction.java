@@ -3,7 +3,10 @@ package io.jyasonx.jsxpay.channel;
 import io.jyasonx.jsxpay.common.ChannelType;
 import io.jyasonx.jsxpay.common.IdType;
 import io.jyasonx.jsxpay.common.TransactionStatus;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

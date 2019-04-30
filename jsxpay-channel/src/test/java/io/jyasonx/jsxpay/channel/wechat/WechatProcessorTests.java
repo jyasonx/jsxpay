@@ -3,6 +3,8 @@ package io.jyasonx.jsxpay.channel.wechat;
 import io.jyasonx.jsxpay.channel.AbstractBaseTests;
 import io.jyasonx.jsxpay.channel.Config;
 import io.jyasonx.jsxpay.channel.Transaction;
+import io.jyasonx.jsxpay.channel.bean.TransactionQueryRequest;
+import io.jyasonx.jsxpay.channel.bean.TransactionQueryResponse;
 import io.jyasonx.jsxpay.channel.bean.TransactionRequest;
 import io.jyasonx.jsxpay.channel.bean.TransactionResponse;
 import io.jyasonx.jsxpay.common.ChannelType;
@@ -50,6 +52,23 @@ public class WechatProcessorTests extends AbstractBaseTests {
         assertThat(response).isNotNull();
         assertThat(response.getTransaction().getCode()).isEqualTo(CODE_SUCCESS);
         assertThat(response.getTransaction().getStatus()).isEqualTo(TransactionStatus.PROCESSING);
+    }
+
+    @Test
+    public void testTransactionQuery() {
+        TransactionQueryRequest request = new TransactionQueryRequest();
+        request.setConfig(config);
+        request.setTransactionType(TransactionType.WITHHOLD);
+        request.getTransactions().add(Transaction.builder()
+                .channelSerialNo("a14f9fc9cfb34451b930b1530eb8ed1c")
+                .build());
+        TransactionQueryResponse response = processor.execute(request);
+
+        log.info("response: {}", response);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getTransactions().get(0).getCode()).isEqualTo(CODE_SUCCESS);
+        assertThat(response.getTransactions().get(0).getStatus()).isEqualTo(TransactionStatus.PROCESSING);
     }
 
 }

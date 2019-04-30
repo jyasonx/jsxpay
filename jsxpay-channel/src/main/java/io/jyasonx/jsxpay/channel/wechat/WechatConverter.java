@@ -1,5 +1,6 @@
 package io.jyasonx.jsxpay.channel.wechat;
 
+import com.google.common.base.Strings;
 import com.thoughtworks.xstream.XStream;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
@@ -34,14 +35,18 @@ public class WechatConverter extends AbstractConverter {
     private static final String TEMPLATE_ATTRIBUTE_REQUEST = "request";
 
     protected static final String CODE_SUCCESS = "SUCCESS";
+    private static final String CODE_ORDER_NOT_EXIST = "ORDERNOTEXIST";
+    private static final String CODES_FAILED = "REFUND|CLOSED|REVOKED";
 
-    private Template transactionTemplate;
+    private final Template transactionTemplate;
+    private final Template transactionQueryTemplate;
     private final XStream stream;
 
     public WechatConverter() {
         Configuration configuration = FREEMARKER_HELPER.getConfiguration();
         try {
             transactionTemplate = configuration.getTemplate("WECHAT_Transaction.ftl");
+            transactionQueryTemplate = configuration.getTemplate("WECHAT_TransactionQuery.ftl");
         } catch (IOException ex) {
             throw new ThirdpartyException("Failed to initialize templates.", ex);
         }
@@ -69,7 +74,6 @@ public class WechatConverter extends AbstractConverter {
         } catch (TemplateModelException ex) {
             throw new ThirdpartyException(ex.getMessage(), ex);
         }
-
     }
 
     @Override
@@ -96,11 +100,52 @@ public class WechatConverter extends AbstractConverter {
 
     @Override
     protected String from(TransactionQueryRequest request) {
-        return super.from(request);
+        try {
+            BeansWrapper wrapper = new BeansWrapperBuilder(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS).build();
+            TemplateHashModel templateHashModel = wrapper.getStaticModels();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put(TEMPLATE_ATTRIBUTE_REQUEST, request);
+            data.put(IdUtils.class.getSimpleName(), templateHashModel.get(IdUtils.class.getName()));
+            return render(transactionQueryTemplate, data);
+        } catch (TemplateModelException ex) {
+            throw new ThirdpartyException(ex.getMessage(), ex);
+        }
     }
 
     @Override
     protected TransactionQueryResponse toTransactionQueryResponse(String content, Request request) {
-        return super.toTransactionQueryResponse(content, request);
+        ResponseMapper mapper = (ResponseMapper) stream.fromXML(content);
+        TransactionQueryResponse response = new TransactionQueryResponse();
+        response.setCode(mapper.getCode());
+        response.setMessage(mapper.getMessage());
+
+        TransactionStatus status;
+        String code = Strings.isNullOrEmpty(mapper.getErrorCode())
+                ? mapper.getResultCode()
+                : mapper.getErrorCode();
+        String message = mapper.getErrorMessage();
+
+        if (CODE_SUCCESS.equals(mapper.getCode()) || CODE_SUCCESS.endsWith(mapper.getResultCode())) {
+            if (CODE_SUCCESS.equals(mapper.getTradeState())) {
+                status = TransactionStatus.SUCCEED;
+            } else if (CODE_ORDER_NOT_EXIST.equals(mapper.getErrorCode())) {
+                status = TransactionStatus.FAILED;
+            } else if (CODES_FAILED.contains(mapper.getTradeState())) {
+                status = TransactionStatus.FAILED;
+            } else {
+                status = TransactionStatus.PROCESSING;
+            }
+        } else {
+            status = TransactionStatus.PROCESSING;
+        }
+        response.getTransactions().add(Transaction.builder()
+                .status(status)
+                .settlementDate(Objects.nonNull(mapper.getFinishedTime())
+                        ? LocalDate.parse(mapper.getFinishedTime(), DateUtils.DATE_TIME) : null)
+                .code(code)
+                .message(message)
+                .build());
+        return response;
     }
 }
