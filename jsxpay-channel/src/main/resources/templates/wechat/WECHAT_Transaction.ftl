@@ -11,11 +11,13 @@
     <mch_id>${request.config.merchantNo}</mch_id>
     <nonce_str>${IdUtils.uuidWithoutDash()}</nonce_str>
     <out_trade_no>${request.transaction.channelSerialNo}</out_trade_no>
+    <product_id>${request.transaction.channelSerialNo}</product_id>
+    <sign_type>${request.config.signatureAlgorithm}</sign_type>
     <body>${request.transaction.description}</body>
     <detail>${request.transaction.description}</detail>
     <notify_url>${request.config.callbackUrl}</notify_url>
     <fee_type>CNY</fee_type>
-    <total_fee>${request.transaction.amount}</total_fee>
+    <total_fee>${request.transaction.amount * 100}</total_fee>
     <time_start>${request.createdTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))}</time_start>
     <time_expire>${request.transaction.expireTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))}</time_expire>
     <trade_type>NATIVE</trade_type>
