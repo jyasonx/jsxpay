@@ -846,7 +846,7 @@ public class SecurityUtils {
         return joinedArray;
     }
 
-    private static KeyStore getKeyStore(String type, String key, String pwd, String provider)
+    public static KeyStore getKeyStore(String type, String key, String pwd, String provider)
             throws SecurityException {
         try {
             char[] chars = pwd.toCharArray();

@@ -45,4 +45,13 @@ public class AbstractHttpProcessor implements Processor {
             throw new ThirdpartyException("Error connecting to remote server", ex);
         }
     }
+
+    protected HttpEntity doExecute(HttpClient httpClient, HttpRequestBase request) {
+        try {
+            return httpClient.execute(request).getEntity();
+        } catch (IOException ex) {
+            log.error("Failed to communicate with remote server due to an exception!", ex);
+            throw new ThirdpartyException("Error connecting to remote server", ex);
+        }
+    }
 }

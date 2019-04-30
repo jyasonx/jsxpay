@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString(exclude = {"cvv2", "validThru"})
-//@NoArgsConstructor
 @Builder(builderClassName = "Builder")
 public class Transaction {
     private String serialNo;
@@ -22,6 +21,7 @@ public class Transaction {
     private ChannelType channelType;
     private String channelSerialNo;
     private String thirdpartySerialNo;
+    private String thirdpartyPrepayNo;
 
     private String bankAcronym;
     private String bankCode;
@@ -45,6 +45,7 @@ public class Transaction {
     private TransactionStatus status;
 
     private String description;
+    private String codeUrl;
 
     private String code;
     private String message;

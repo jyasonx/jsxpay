@@ -17,7 +17,7 @@ public enum ChannelType {
         this.name = name;
     }
 
-    public static final String NAME_WECHAT = "WECHAT";
-    public static final String NAME_ALIPAY = "ALIPAY";
-    public static final String NAME_JDFINANCE = "JDFINANCE";
+    public static final String WECHAT_NAME = "WECHAT";
+    public static final String ALIPAY_NAME = "ALIPAY";
+    public static final String JDFINANCE_NAME = "JDFINANCE";
 }

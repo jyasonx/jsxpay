@@ -1,5 +1,6 @@
 package io.jyasonx.jsxpay.channel;
 
+import io.jyasonx.jsxpay.common.ChannelType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,9 @@ import java.util.Map;
 @Setter
 @ToString
 public class Config {
+
+    private String channelNo;
+    private ChannelType channelType;
 
     private String baseUrl;
     private String callbackUrl;
@@ -31,6 +35,7 @@ public class Config {
     private String signatureAlgorithm;
 
     private String appId;
+    private String secretKey;
 
     private Map<String, BankMapping> bankMappings = new HashMap<>();
 
