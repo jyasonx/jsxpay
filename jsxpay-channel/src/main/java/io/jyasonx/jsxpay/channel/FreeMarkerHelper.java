@@ -6,6 +6,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import io.jyasonx.jsxpay.util.StringUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,8 +23,7 @@ public class FreeMarkerHelper {
 
     public FreeMarkerHelper(String... templatePaths) {
         configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
-        // TODO move utf-8 to util module
-        configuration.setDefaultEncoding("UTF-8");
+        configuration.setDefaultEncoding(StringUtils.UTF_8);
         MultiTemplateLoader loader = new MultiTemplateLoader(
                 Arrays.stream(templatePaths)
                         .map(it -> new ClassTemplateLoader(getClass(), it))
