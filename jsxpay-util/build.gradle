@@ -28,6 +28,7 @@ dependencies {
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
     compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations'
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
 
     compile 'org.bouncycastle:bcpkix-jdk15on'
     compile 'org.bouncycastle:bcmail-jdk15on'

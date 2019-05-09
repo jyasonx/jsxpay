@@ -1,3 +1,31 @@
 dependencies {
+    compile project(':jsxpay-channel')
+
+    // commons
+    compile 'org.codehaus.groovy:groovy-all'
+    compile 'org.mapstruct:mapstruct-jdk8'
+    compileOnly 'org.mapstruct:mapstruct-processor'
+
+    // spring boot
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+//    compile 'org.springframework.boot:spring-boot-starter-amqp'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // orm
+    compile 'mysql:mysql-connector-java'
+    compile 'org.hibernate:hibernate-java8'
+    compile 'com.h2database:h2'
+
+    // axon
+    compile 'org.axonframework:axon-spring-boot-starter'
+//    compile 'org.axonframework.extensions.mongo:axon-mongo'
+
+    compile 'com.github.ben-manes.caffeine:caffeine'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.axonframework:axon-test'
 }
