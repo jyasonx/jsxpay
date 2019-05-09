@@ -43,7 +43,7 @@ public class WechatCryptor {
     public String sign(String content, Request request) {
 
         try {
-            //noinspection unchecked
+            @SuppressWarnings("unchecked")
             Map<String, String> elements = (Map) stream.fromXML(content);
             elements.remove(XML_NODE_SIGN);
             String pairs = StringUtils.pair(elements);
@@ -59,7 +59,7 @@ public class WechatCryptor {
 
     public void verify(String content, Request request) {
         try {
-            //noinspection unchecked
+            @SuppressWarnings("unchecked")
             Map<String, String> elements = (Map) stream.fromXML(content);
 
             if (!CODE_SUCCESS.equals(elements.get(XML_NODE_CODE))) {

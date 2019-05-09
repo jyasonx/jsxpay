@@ -48,6 +48,7 @@ public class WechatProcessor extends AbstractHttpProcessor {
         this.cryptor = cryptor;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends Response> T execute(Request request) {
         try {
@@ -68,7 +69,6 @@ public class WechatProcessor extends AbstractHttpProcessor {
             Response response = converter.readFrom(responseString, request);
             response.setContent(responseString);
 
-            //noinspection unchecked
             return (T) response;
         } catch (IOException ex) {
             log.error("Failed to read the HTTP entity from response!", ex);
